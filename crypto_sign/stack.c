@@ -1,6 +1,5 @@
 #include "api.h"
 #include "randombytes.h"
-#include "stm32wrapper.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -8,10 +7,8 @@
 #define MAX_SIZE 0x16000
 
 static void send_stack_usage(const char *s, unsigned int c) {
-  char outs[120];
-  send_USART_str(s);
-  sprintf(outs, "%u\n", c);
-  send_USART_str(outs);
+  printf(s);
+  printf("%u\n", c);
 }
 
 unsigned int canary_size = MAX_SIZE;
@@ -72,30 +69,25 @@ static int test_sign(void) {
     send_stack_usage("crypto_sign_keypair stack usage", stack_key_gen);
     send_stack_usage("crypto_sign stack usage", stack_sign);
     send_stack_usage("crypto_sign_open stack usage", stack_verify);
-    send_USART_str("Signature valid!\n");
+    printf("Signature valid!\n");
     return 0;
   }
 }
 
 int main(void) {
-  clock_setup(CLOCK_FAST);
-  gpio_setup();
-  usart_setup(115200);
-  rng_enable();
-
  // marker for automated benchmarks
-  send_USART_str("==========================");
+  printf("==========================");
   canary_size = MAX_SIZE;
   while(test_sign()){
     canary_size -= 0x1000;
     if(canary_size == 0) {
-      send_USART_str("failed to measure stack usage.\n");
+      printf("failed to measure stack usage.\n");
       break;
     } 
   }
 
   // marker for automated benchmarks
-  send_USART_str("#");
+  printf("#");
 
   while(1);
   return 0;
