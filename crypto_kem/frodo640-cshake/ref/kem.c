@@ -7,8 +7,6 @@
 #include <string.h>
 #include "fips202.h"
 #include "randombytes.h"
-#include "api.h"
-#include "frodo_macrify.h"
 
 
 int crypto_kem_keypair(unsigned char* pk, unsigned char* sk)
