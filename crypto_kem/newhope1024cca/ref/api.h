@@ -1,7 +1,8 @@
-#ifndef API_H
-#define API_H
+#ifndef NEWHOPE_API_H
+#define NEWHOPE_API_H
 
 #include "params.h"
+#include "pq_api.h"
 
 #define CRYPTO_SECRETKEYBYTES  NEWHOPE_CCAKEM_SECRETKEYBYTES
 #define CRYPTO_PUBLICKEYBYTES  NEWHOPE_CCAKEM_PUBLICKEYBYTES
@@ -15,11 +16,5 @@
 #else
 #error "NEWHOPE_N must be either 512 or 1024"
 #endif
-
-int crypto_kem_keypair(unsigned char *pk, unsigned char *sk);
-
-int crypto_kem_enc(unsigned char *ct, unsigned char *ss, const unsigned char *pk);
-
-int crypto_kem_dec(unsigned char *ss, const unsigned char *ct, const unsigned char *sk);
 
 #endif

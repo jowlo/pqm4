@@ -7,6 +7,7 @@
 #ifndef _API_FRODO640_H_
 #define _API_FRODO640_H_
 
+#include "pq_api.h"
 
 #define CRYPTO_SECRETKEYBYTES  19872     // sizeof(s) + CRYPTO_PUBLICKEYBYTES + 2*PARAMS_N*PARAMS_NBAR
 #define CRYPTO_PUBLICKEYBYTES   9616     // sizeof(seed_A) + (PARAMS_LOGQ*PARAMS_N*PARAMS_NBAR)/8
@@ -15,12 +16,6 @@
 
 // Algorithm name
 #define CRYPTO_ALGNAME "FrodoKEM-640"       
-
-
-int crypto_kem_keypair(unsigned char *pk, unsigned char *sk);
-int crypto_kem_enc(unsigned char *ct, unsigned char *ss, const unsigned char *pk);
-int crypto_kem_dec(unsigned char *ss, const unsigned char *ct, const unsigned char *sk);
-
 
 #endif
 

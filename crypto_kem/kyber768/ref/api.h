@@ -1,7 +1,9 @@
-#ifndef API_H
-#define API_H
+#ifndef KYBER678_API_H
+#define KYBER678_API_H
 
 #include "params.h"
+
+#include "pq_api.h"
 
 #define CRYPTO_SECRETKEYBYTES  KYBER_SECRETKEYBYTES
 #define CRYPTO_PUBLICKEYBYTES  KYBER_PUBLICKEYBYTES
@@ -17,12 +19,6 @@
 #else
 #error "KYBER_K must be in {2,3,4}"
 #endif
-
-int crypto_kem_keypair(unsigned char *pk, unsigned char *sk);
-
-int crypto_kem_enc(unsigned char *ct, unsigned char *ss, const unsigned char *pk);
-
-int crypto_kem_dec(unsigned char *ss, const unsigned char *ct, const unsigned char *sk);
 
 
 #endif
