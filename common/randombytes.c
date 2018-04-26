@@ -1,31 +1,29 @@
+/*
+ * Copyright (C) 2016 Kaspar Schleiser <kaspar@schleiser.de>
+ *
+ * This file is subject to the terms and conditions of the GNU Lesser
+ * General Public License v2.1. See the file LICENSE in the top level
+ * directory for more details.
+ */
+
 #include <stdint.h>
-#include <libopencm3/stm32/rng.h>
-#include "randombytes.h"
+#include <string.h>
 
-//TODO Maybe we do not want to use the hardware RNG for all randomness, but instead only read a seed and then expand that using fips202.
+#include "random.h"
 
-void randombytes(unsigned char *x,unsigned long long xlen)
+#include <stdio.h>
+
+void randombytes(uint8_t *target, uint64_t n)
 {
-    union
-    {
-        unsigned char aschar[4];
-        uint32_t asint;
-    } random;
+	uint32_t random;
+	uint8_t *random_pos = (uint8_t*)&random;
+	unsigned _n = 0;
 
-    while (xlen > 4)
-    {
-        random.asint = rng_get_random_blocking();
-        *x++ = random.aschar[0];
-        *x++ = random.aschar[1];
-        *x++ = random.aschar[2];
-        *x++ = random.aschar[3];
-        xlen -= 4;
-    }
-    if (xlen > 0)
-    {
-        for (random.asint = rng_get_random_blocking(); xlen > 0; --xlen)
-        {
-            *x++ = random.aschar[xlen - 1];
-        }
-    }
+	while (n--) {
+		if (! (_n++ & 0x3)) {
+			random = random_uint32();
+			random_pos = (uint8_t *) &random;
+		}
+		*target++ = *random_pos++;
+	}
 }
