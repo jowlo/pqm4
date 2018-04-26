@@ -1,7 +1,5 @@
 HEADERS = api.h config.h frodo_macrify.h 
-OBJECTS = frodo640.o kem.o noise.o util.o $(COMMON_OBJS)
-
-
+OBJECTS = frodo640.o util.o $(COMMON_OBJS)
 
 
 pqlib.a: $(OBJECTS)
