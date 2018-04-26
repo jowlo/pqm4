@@ -2,7 +2,6 @@
 /* taken from SUPERCOP (https://bench.cr.yp.to)     */
 
 #include "api.h"
-#include "stm32wrapper.h"
 #include "randombytes.h"
 
 #include <stdio.h>
@@ -18,10 +17,8 @@ static void printbytes(const unsigned char *x, unsigned long long xlen)
   char out[3];
   unsigned long long i;
   for(i=0;i<xlen;i++) {
-    sprintf(out, "%02x", x[i]);
-    send_USART_bytes((unsigned char *)out, 2);
+    printf("%02x", x[i]);
   }
-  send_USART_str("");
 }
 
 static uint32 seed[32] = { 3,1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5 } ;
@@ -78,12 +75,7 @@ int main(void)
   int r;
   unsigned long long i,j;
 
-  clock_setup(CLOCK_FAST);
-  gpio_setup();
-  usart_setup(115200);
-  rng_enable();
-
-  send_USART_str("==========================");
+  printf("==========================");
 
   for(i=0; i<MAXMLEN; i=(i==0)?i+1:i<<1)
   {
@@ -103,21 +95,21 @@ int main(void)
 
     if(r)
     {
-      send_USART_str("ERROR: signature verification failed");
-      send_USART_str("#");
+      printf("ERROR: signature verification failed");
+      printf("#");
       return -1;
     }
     for(j=0;j<i;j++)
     {
       if(sm[j]!=mi[j])
       {
-        send_USART_str("ERROR: message recovery failed");
-        send_USART_str("#");
+        printf("ERROR: message recovery failed");
+        printf("#");
         return -1;
       }
     }
   }
 
-  send_USART_str("#");
+  printf("#");
   return 0;
 }

@@ -1,7 +1,7 @@
 #include "api.h"
 #include "randombytes.h"
-#include "stm32wrapper.h"
 #include <string.h>
+#include <stdio.h>
 
 #define NTESTS 10
 
@@ -17,23 +17,23 @@ static int test_keys(void)
   {
     //Alice generates a public key
     crypto_kem_keypair(pk, sk_a);
-    send_USART_str("DONE key pair generation!");
+    printf("DONE key pair generation!");
 
     //Bob derives a secret key and creates a response
     crypto_kem_enc(sendb, key_b, pk);
-    send_USART_str("DONE encapsulation!");
+    printf("DONE encapsulation!");
 
     //Alice uses Bobs response to get her secret key
     crypto_kem_dec(key_a, sendb, sk_a);
-    send_USART_str("DONE decapsulation!");
+    printf("DONE decapsulation!");
 
     if(memcmp(key_a, key_b, CRYPTO_BYTES))
     {
-      send_USART_str("ERROR KEYS\n");
+      printf("ERROR KEYS\n");
     } 
     else 
     {
-      send_USART_str("OK KEYS\n");
+      printf("OK KEYS\n");
     }
   }
 
@@ -65,11 +65,11 @@ static int test_invalid_sk_a(void)
 
     if(!memcmp(key_a, key_b, CRYPTO_BYTES)) 
     {
-      send_USART_str("ERROR invalid sk_a\n");
+      printf("ERROR invalid sk_a\n");
     } 
     else 
     {
-      send_USART_str("OK invalid sk_a\n");
+      printf("OK invalid sk_a\n");
     }
   }
 
@@ -104,11 +104,11 @@ static int test_invalid_ciphertext(void)
 
     if(!memcmp(key_a, key_b, CRYPTO_BYTES))
     {
-      send_USART_str("ERROR invalid ciphertext\n");
+      printf("ERROR invalid ciphertext\n");
     } 
     else 
     {
-      send_USART_str("OK invalid ciphertext\n");
+      printf("OK invalid ciphertext\n");
     }
   }
 
@@ -117,17 +117,13 @@ static int test_invalid_ciphertext(void)
 
 int main(void)
 {
-  clock_setup(CLOCK_FAST);
-  gpio_setup();
-  usart_setup(115200);
-  rng_enable();
 
   // marker for automated testing
-  send_USART_str("==========================");
+  printf("==========================");
   test_keys();
   test_invalid_sk_a();
   test_invalid_ciphertext();
-  send_USART_str("#");
+  printf("#");
 
   while(1);
 
