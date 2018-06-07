@@ -1,12 +1,8 @@
-CC = arm-none-eabi-gcc
-CFLAGS = -Wall -Wextra -O3 -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
-AR     = arm-none-eabi-gcc-ar 
-
-OBJECTS= cpapke.o kem.o newhope_asm.o poly.o precomp.o reduce.o verify.o
+OBJECTS= cpapke.o kem.o newhope_asm.o poly.o precomp.o reduce.o verify.o $(COMMON_OBJS)
 HEADERS= api.h cpapke.h ntt.h params.h poly.h reduce.h verify.h 
 
 
-libpqm4.a: $(OBJECTS)
+pqlib.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 %.o: %.c $(HEADERS)
@@ -17,8 +13,7 @@ libpqm4.a: $(OBJECTS)
 
 
 .PHONY: clean
-.INTERMEDIATE: $(OBJECTS)
 
 clean:
-	-rm libpqm4.a
+	-rm pqlib.a
 	-rm *.o 
