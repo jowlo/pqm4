@@ -21,11 +21,11 @@ all: tests testvectors speeds stack
 
 
 ifneq ($(origin PQ_KEM), undefined)
-KEMLIB=crypto_kem/$(PQ_KEM)
+KEMLIB=crypto_kem/$(PQ_KEM)/$(PQ_KEM_IMPL)
 LIBS=$(OWNDIR)/$(KEMLIB)/pqlib.a
 endif
 ifneq ($(origin PQ_SIGN), undefined)
-SIGNLIB=crypto_sign/$(PQ_SIGN)
+SIGNLIB=crypto_sign/$(PQ_SIGN)/$(PQ_SIGN_IMPL)
 LIBS+=$(OWNDIR)/$(SIGNLIB)/pqlib.a
 endif
 
