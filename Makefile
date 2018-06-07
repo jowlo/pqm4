@@ -30,7 +30,20 @@ LIBS+=$(OWNDIR)/$(SIGNLIB)/pqlib.a
 endif
 
 
-libs: $(COMMON_OBJS) $(KEMLIB) $(SIGNLIB) force
+define DEPENDABLE_VAR
+
+.PHONY: phony
+$1: phony
+	@if [[ `cat $1 2>&1` != '$($1)' ]]; then \
+		echo -n $($1) > $1 ; \
+	fi
+endef
+
+#declare scheme selections to be dependable
+$(eval $(call DEPENDABLE_VAR,KEMLIB))
+$(eval $(call DEPENDABLE_VAR,SIGNLIB))
+
+libs: $(COMMON_OBJS) $(KEMLIB) $(SIGNLIB) KEMLIB SIGNLIB
 ifeq ($(words $(LIBS)), 1)
 	@cp $(LIBS) $(BINDIR)/pqlib.a
 else
