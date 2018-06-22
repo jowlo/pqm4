@@ -6,7 +6,7 @@ pqlib.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 %.o: %.c $(HEADERS)
-	$(CC) -I$(INCPATH) $(CFLAGS) -c -o $@ $<
+	$(CC) -I$(INCPATH) $(filter-out -pedantic,$(CFLAGS)) -c -o $@ $<
 
 .PHONY: clean
 
