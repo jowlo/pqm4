@@ -1,0 +1,1 @@
+make COMMON_OBJS="../../../common/fips202.o ../../../common/randombytes.o" INCPATH=../../../common/ libpq.a

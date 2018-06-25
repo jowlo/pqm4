@@ -8,8 +8,11 @@
 
 #include <stdint.h>
 #include <string.h>
-
+#ifdef RIOT_VERSION
 #include "random.h"
+#else
+#include <stdlib.h>
+#endif
 
 #include <stdio.h>
 
@@ -21,7 +24,11 @@ void randombytes(uint8_t *target, uint64_t n)
 
 	while (n--) {
 		if (! (_n++ & 0x3)) {
+#ifdef RIOT_VERSION
 			random = random_uint32();
+#else
+      random = rand();
+#endif
 			random_pos = (uint8_t *) &random;
 		}
 		*target++ = *random_pos++;
