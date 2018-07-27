@@ -2,9 +2,9 @@
 # SIGNLIBS=$(wildcard crypto_sign/*/*)
 
 OWNDIR=$(shell pwd)
-INCPATH=$(OWNDIR)/common
+INCPATH=$(OWNDIR)/common/m4/
 
-OBJS        = $(OWNDIR)/obj/fips202.o 
+OBJS        = $(OWNDIR)/obj/fips202.o  $(OWNDIR)/obj/keccakf1600.o
 RANDOMBYTES = $(OWNDIR)/obj/randombytes.o
 
 COMMON_OBJS=$(OBJS) $(RANDOMBYTES)
@@ -68,7 +68,13 @@ $(OWNDIR)/obj/randombytes.o: $(OWNDIR)/common/randombytes.c
 	@cp $@ $(BINDIR)
 
 
-$(OWNDIR)/obj/fips202.o:  $(OWNDIR)/common/fips202.c
+$(OWNDIR)/obj/fips202.o:  $(OWNDIR)/common/m4/fips202.c
+	mkdir -p obj 
+	$(CC) $(CFLAGS) -o $@ -c $^
+	@cp $@ $(BINDIR)
+
+
+$(OWNDIR)/obj/keccakf1600.o:  $(OWNDIR)/common/m4/keccakf1600.S
 	mkdir -p obj 
 	$(CC) $(CFLAGS) -o $@ -c $^
 	@cp $@ $(BINDIR)
