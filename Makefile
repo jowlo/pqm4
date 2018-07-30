@@ -2,12 +2,20 @@
 # SIGNLIBS=$(wildcard crypto_sign/*/*)
 
 OWNDIR=$(shell pwd)
-INCPATH=$(OWNDIR)/common/m4/
 
-OBJS        = $(OWNDIR)/obj/fips202.o  $(OWNDIR)/obj/keccakf1600.o
-RANDOMBYTES = $(OWNDIR)/obj/randombytes.o
+ifneq ($(origin PQ_COMMON_IMPL), undefined)
+	INCPATH			= $(OWNDIR)/common/$(PQ_COMMON_IMPL)/
+	ifneq (,$(filter "m4" "m0", "$(PQ_COMMON_IMPL)"))
+		KECCAK_SRC	= $(OWNDIR)/common/$(PQ_COMMON_IMPL)/keccakf1600.S
+		FIPS202_SRC = $(OWNDIR)/common/$(PQ_COMMON_IMPL)/fips202.c
+	endif
+else
+	INCPATH			= $(OWNDIR)/common/generic/
+	KECCAK_SRC	= $(OWNDIR)/common/generic/keccakf1600.c
+	FIPS202_SRC = $(OWNDIR)/common/generic/fips202.c
+endif
 
-COMMON_OBJS=$(OBJS) $(RANDOMBYTES)
+COMMON_OBJS = $(OWNDIR)/obj/keccakf1600.o $(OWNDIR)/obj/fips202.o $(OWNDIR)/obj/randombytes.o
 
 CFLAGS += $(INCLUDES) -I$(OWNDIR)/
 
@@ -68,13 +76,13 @@ $(OWNDIR)/obj/randombytes.o: $(OWNDIR)/common/randombytes.c
 	@cp $@ $(BINDIR)
 
 
-$(OWNDIR)/obj/fips202.o:  $(OWNDIR)/common/m4/fips202.c
+$(OWNDIR)/obj/fips202.o:  $(FIPS202_SRC)
 	mkdir -p obj 
 	$(CC) $(CFLAGS) -o $@ -c $^
 	@cp $@ $(BINDIR)
 
 
-$(OWNDIR)/obj/keccakf1600.o:  $(OWNDIR)/common/m4/keccakf1600.S
+$(OWNDIR)/obj/keccakf1600.o:  $(KECCAK_SRC)
 	mkdir -p obj 
 	$(CC) $(CFLAGS) -o $@ -c $^
 	@cp $@ $(BINDIR)
