@@ -11,5 +11,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f libpqm4.a
+	-rm -f pqlib.a
 	-rm -f *.o
