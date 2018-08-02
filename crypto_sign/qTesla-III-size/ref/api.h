@@ -3,10 +3,13 @@
 *
 * Abstract: API header file
 **************************************************************************************/
+#ifndef QTESLA_API_H
+#define QTESLA_API_H
 
 #include "params.h"
 #include <stdint.h>
 
+#include "pq_api.h"
 
 #define CRYPTO_RANDOMBYTES 32
 #define CRYPTO_SEEDBYTES 32
@@ -19,24 +22,8 @@
 // Contains seed_a and polynomial t
 #define CRYPTO_PUBLICKEYBYTES ((PARAM_N*PARAM_Q_LOG+7)/8 + CRYPTO_SEEDBYTES)
 
-
 #define CRYPTO_ALGNAME "qTesla-III-size"
 
-int crypto_sign_keypair(
-    unsigned char *,
-    unsigned char *
-    );
-
-int crypto_sign(
-    unsigned char *,unsigned long long *,
-    const unsigned char *,unsigned long long,
-    const unsigned char *
-    );
-
-int crypto_sign_open(
-    unsigned char *,unsigned long long *,
-    const unsigned char *,unsigned long long,
-    const unsigned char *
-    );
+#endif
 
 
