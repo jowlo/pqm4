@@ -2,7 +2,7 @@ OBJECTS= sign.o consts.o sample.o poly.o $(COMMON_OBJS)
 HEADERS= api.h params.h sample.h poly.h
 
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 
@@ -12,5 +12,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f pqlib.a
+	-rm -f pqm4.a
 	-rm -f *.o 

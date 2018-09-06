@@ -2,9 +2,9 @@ OBJECTS = core.o fft_transform.o gen_randomness.o kem.o poly.o poly_encode.o $(C
 HEADERS = api.h core.h gen_randomness.h params.h poly.h
 
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
-	@cp pqlib.a $(BINDIR)
+	@cp pqm4.a $(BINDIR)
 
 
 %.o: %.c $(HEADERS)
@@ -17,5 +17,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm pqlib.a
+	-rm pqm4.a
 	-rm *.o 

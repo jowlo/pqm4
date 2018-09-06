@@ -30,11 +30,11 @@ all: tests testvectors speeds stack
 
 ifneq ($(origin PQ_KEM), undefined)
 KEMLIB=crypto_kem/$(PQ_KEM)/$(PQ_KEM_IMPL)
-LIBS=$(OWNDIR)/$(KEMLIB)/pqlib.a
+LIBS=$(OWNDIR)/$(KEMLIB)/pqm4.a
 endif
 ifneq ($(origin PQ_SIGN), undefined)
 SIGNLIB=crypto_sign/$(PQ_SIGN)/$(PQ_SIGN_IMPL)
-LIBS+=$(OWNDIR)/$(SIGNLIB)/pqlib.a
+LIBS+=$(OWNDIR)/$(SIGNLIB)/pqm4.a
 endif
 
 
@@ -53,9 +53,9 @@ $(eval $(call DEPENDABLE_VAR,SIGNLIB))
 
 libs: $(COMMON_OBJS) $(KEMLIB) $(SIGNLIB) KEMLIB SIGNLIB
 ifeq ($(words $(LIBS)), 1)
-	@cp $(LIBS) $(BINDIR)/pqlib.a
+	@cp $(LIBS) $(BINDIR)/pqm4.a
 else
-	ar -rcT $(BINDIR)/pqlib.a $(LIBS)
+	ar -rcT $(BINDIR)/pqm4.a $(LIBS)
 endif
 
 tests: libs $(KEMTESTS) $(SIGNTESTS)

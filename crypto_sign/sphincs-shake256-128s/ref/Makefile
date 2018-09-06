@@ -1,7 +1,7 @@
 HEADERS = params.h hash.h          hash_address.h wots.h utils.h fors.h api.h
 OBJECTS =          hash_shake256.o hash_address.o wots.o utils.o fors.o sign.o $(COMMON_OBJS)
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 %.o: %.c $(HEADERS)

@@ -2,7 +2,7 @@ HEADERS = api.h cbd.h kem.h pack_unpack.h poly.h poly_mul.h recon.h SABER_indcpa
 SOURCES = cbd.c kem.c pack_unpack.c poly.c poly_mul.c recon.c SABER_indcpa.c verify.c
 OBJECTS = cbd.o kem.o pack_unpack.o poly.o poly_mul.o recon.o SABER_indcpa.o verify.o $(COMMON_OBJS)
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 %.o: %.c $(HEADERS)
@@ -11,5 +11,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f pqlib.a
+	-rm -f pqm4.a
 	-rm -f *.o

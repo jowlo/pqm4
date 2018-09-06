@@ -3,7 +3,7 @@ HEADERS = api.h params.h sign.h polyvec.h packing.h poly.h reduce.h ntt.h \
   rounding.h
 
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 
@@ -13,5 +13,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f pqlib.a
+	-rm -f pqm4.a
 	-rm -f *.o 

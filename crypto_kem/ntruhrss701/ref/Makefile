@@ -2,7 +2,7 @@ SOURCES =          cbd.c owcpa.c poly.c verify.c ntrukem.c
 HEADERS = params.h cbd.h owcpa.h poly.h verify.h api.h
 OBJECTS =          cbd.o owcpa.o poly.o verify.o ntrukem.o $(COMMON_OBJS)
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
 
 %.o: %.c $(HEADERS)
@@ -11,5 +11,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f pqlib.a
+	-rm -f pqm4.a
 	-rm -f *.o

@@ -2,9 +2,9 @@ HEADERS = api.h config.h frodo_macrify.h
 OBJECTS = frodo640.o  util.o $(COMMON_OBJS)
 
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
-	@cp pqlib.a $(BINDIR)
+	@cp pqm4.a $(BINDIR)
 
 
 
@@ -14,5 +14,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm -f pqlib.a
+	-rm -f pqm4.a
 	-rm -f *.o

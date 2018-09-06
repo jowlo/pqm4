@@ -2,9 +2,9 @@ OBJECTS= poly.o ntt.o cpapke.o kem.o precomp.o reduce.o verify.o $(COMMON_OBJS)
 HEADERS= api.h cpapke.h ntt.h params.h poly.h reduce.h verify.h 
 
 
-pqlib.a: $(OBJECTS)
+pqm4.a: $(OBJECTS)
 	$(AR) rcs $@ $(OBJECTS)
-	@cp pqlib.a $(BINDIR)
+	@cp pqm4.a $(BINDIR)
 
 
 %.o: %.c $(HEADERS)
@@ -17,5 +17,5 @@ pqlib.a: $(OBJECTS)
 .PHONY: clean
 
 clean:
-	-rm pqlib.a
+	-rm pqm4.a
 	-rm *.o 
